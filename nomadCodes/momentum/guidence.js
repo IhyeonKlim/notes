@@ -50,7 +50,122 @@ guidence
         console.log("hello" + name)
     }
     functionName("eunji")
+    function plus(a,b){
+        return a+b
+    }
+11. const player = {
+        name : "eunji",
+        sayHello : function(theOtherName){
+            console.log("hello"+theOtherName)
+            }
+    }
+    player.sayHello("hey")
+
+12. calc with console.log
+
+13. return = replacing function. 
+    when return it. function stops.
+
+14. conditions, if, else if, else
+
+15. promt, typeof, parseInt, NaN
+    const age = parseInt(prompt("how old are you?"))
+    console.log(age)
+16. if(condition){
+        //condition true
+    }else if(){
+        //else if condition true
+    }else{
+        //condition false
+    }
+
+17. &&,|| true and false
+
+18. console.dir(document)
+    document is object javascript is already conneted. automatically called.
+    document.title
+
+19. document.getElementById().innerText
+
+20. document.getElementsByClassName("hello") returns array.
+    document.getElementsByTagName("h1")
+
+21. document.querySelector(".hello h1")
+    쿼리셀렉터는 CSS처럼 대상을 가져온다. 최상위 단 1개만.
+    document.querySelectorAll(".hello h1")
+    대상이 여러개인경우는 array로
+
+22. Css selector
+
+23. object.addEventListener("click", handleClick)
+    function handleClick(){
+        console.log("clicked")
+    }
+    함수를 안주고 함수명을 준다. 그렇지 않은 경우에는 함수로. 자바스크립트가 자동으로 찾아서 실행한다.
+
+    object.addEventListener("mouseenter", handleMouseEnter)
+    object.addEventListener("mouseleave", handleMouseLeave)
+    function handleMouseEnter(){}
+    function handleMouseLeave(){}
+
+24. window.addEventListener("resize", hadleWindowResize)
+    function handleWindowResize(){
+        document.body.style.backgroundColor = "tomato"
+    }
+
+    window.addEventListener("copy", handleWindowCopy)
+    function handleWindowCopy(){
+        alert("copier!")
+    }
+
+25. 1.find Element. 2. event listen 3.react that event 
+
+app .js // alert("hi")
+//console.log()
+// const age = parseInt(prompt("how old are you?"))
+//     console.log(age, typeof age)
+//     isNaN(age)
+const h1 = document.querySelector("div.hello:first-child h1")
+
+function hadleTitleClick(){
+    // const currentColor = h1.style.color;
+    // let newColor;
+    // if(currentColor === "blue"){        
+    //     newColor = "tomato";
+    // }else{
+    //     newColor = "blue";
+    // }
+    // h1.style.color = newColor;
+    // const clickedClass = "clicked"
+    // if(h1.className === clickedClass){
+    //     h1.className ="";
+    // }else{
+    //     h1.className = clickedClass;
+    // }
+    const clickedClass = "clicked"
+    // if(h1.classList.contains(clickedClass)){
+    //     h1.classList.remove(clickedClass);
+    // }else{
+    //     h1.classList.add(clickedClass);
+    // }
+    h1.classList.toggle(clickedClass)
+}
+
+h1.addEventListener("click", hadleTitleClick)
+
+style.css
+/* body{
+    background-color: beige;
+} */
 
 
+h1 {
+    color:cornflowerblue;
+    transition:color .5s ease-in-out;
+}
 
+.active{
+    color:tomato;
+}
 
+26. string should be in variable. better debug.

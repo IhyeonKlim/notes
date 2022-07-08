@@ -1,0 +1,16 @@
+body {
+    font-family: sans-serif;
+  }
+.samll {
+    background-color: aqua;
+}
+.medium {
+    background-color: purple;
+}
+.large {
+    background-color: yellowgreen;
+}
+.default {
+    background-color: red;
+}
+  

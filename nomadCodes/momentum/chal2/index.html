@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Js Casino</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+
+  <body>
+    <h1>Random Number Game</h1>
+    <div class="chooseForm">
+      <p>
+        Generate a numbetr between 0 and
+        <input id="inputNumber" type="number" />
+      </p>
+    </div>
+    <div class="guessForm">
+      <p>
+        Guess the number
+        <input id="guessNumber" type="number" />
+        <button id="play">Play!</button>
+      </p>
+    </div>
+    <div class="resultForm">
+      <p id="result"></p>
+      <strong><h3 id="whoWon"></h3></strong>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>

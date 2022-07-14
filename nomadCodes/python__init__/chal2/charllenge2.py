@@ -12,8 +12,10 @@ There should be NO ERRORS from Python in the console.
 
 def add_to_dict(my_english_dict, word ="", definition =""):
   type_of = type(my_english_dict)
+#  tpye(a_dict) is not dict
   if type_of != type({}):
     print('You need to send a dictionary. You sent: ' + str(type_of))
+    #print('You need to send a dictionary. You sent: ', type(a_dict))
     return
   elif(definition == ""):
     print('You need to send a word and a definition.')
@@ -38,8 +40,10 @@ def get_from_dict(my_english_dict, word=""):
   else:
     if word in my_english_dict:
       print(word +": "+ my_english_dict[word])
+      #print(f"{word}: {a_dict[word]}")
       return
     else:
+      #print(f"{word} was not found in this dict. )
       print(word + ' was not found in this dict.')
 
 def update_word(my_english_dict, word="", definition=""):

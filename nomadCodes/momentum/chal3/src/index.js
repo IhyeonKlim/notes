@@ -25,7 +25,7 @@ const clockTitle = document.querySelector(".js-clock");
 // setInterval(getClock, 1000);
 
 
-
+//sol
 const xmas = new Date(`${new Date().getFullYear()}-12-25:00:00:00+0900`);
 
 function getTime() {

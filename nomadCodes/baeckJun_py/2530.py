@@ -1,3 +1,4 @@
+#인공지능시계
 h,m,s = input().split()
 enter = int(input())
 

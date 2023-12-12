@@ -1,0 +1,119 @@
+let nowTime ="";
+$(function(){
+    nowTime = new Date();
+    nowTime.setTime(10)*1000
+//    nowTine.setTime('${userSession.sessionTime}'*1000);
+    if(!$("#timeYn").val()){
+        console.log("noLogin");
+    }else{
+        let intervalStart = setInterval(sessionTimer,1000);
+        function sessionTimer(){
+            nowTime = nowTime -1000;
+            if(nowTime == 0){
+                clearIntervla(intervalStart);
+                location.href = "${pageContext.request.contextPath}/security/SessionExpired.do";
+            }else if(nowTime == 300000){
+                jConfirm('auto logout upto 5min. extend?',sessionExtend);
+            }
+            let nowMinutes = Math.floor(nowTime % (1000*60*60) / (1000*60));
+            let nowSeconds = Math.floor(nowTime % (1000*60) /1000);
+            let leftTimeText = (nowMinutes == 0 ? "0" + nowMinutes : nowMinutes) + ":" + (nowSeconds < 10 ? "0" + nowSeconds : nowSeconds);
+            $("#timeLimit").text(leftTimeText);
+        }
+        $("#extendBtn").click(sessionExtend);
+        function sessionExtend(){
+            $.ajax({
+                type:"POST",
+                url:"${pageContext.request.contextPath}/security/sessionExtend.do",
+                success:function (data){
+                    nowTime = 1800000;
+                    jAlert('연장되었습니다.');
+                    
+                },
+                error: function(xhr,status,error){
+                    jAlert("error");
+                }
+            })
+        }
+    }
+})
+
+<c:choose>
+    <c:when test="${empty userSession}">
+    </c:when>
+    <c:otherwise>
+        <a href="#" id="timeLimit">30:00</a>
+        <a href="#" id="extendBtn">[연장하기]</a>
+        <input type="hidden" id="timeYn" value="${userSession.sessionTime}">
+    </c:otherwise>
+</c:choose>
+
+
+
+
+@RequestMapping("/security/SessionExpired.do")
+public String SessionExpired(HttpSession session, SessionStatus sessionStatus, Model model){
+    model.addAttribute("userSession",null);
+    sessionStatus.setComplete();
+    session.invalidate();
+    return "security/SessionExpired";
+}
+
+@RequestMapping("security/Extend.do")
+public void sessionExtend(HttpSession session, SessionStatus sessionStatus, Model model, HttpServletResponse response){
+    session.setMaxInactiveInterval(60*30);
+    int time = session.getMaxInactiveInterval();
+    UserVO user = (UserVO)session.getAttribute("userSession");
+    session.setAttribute("userSession", user);
+    response.setContentType("text/html; charse=utf-8");
+}
+
+@RequestMapping("login.do")
+public void login(@RequestParam String id, @RequestParam String pw, HttpServletRequest request,HttpSession session, SessionStatus sessionStatus, Model model, HttpServletResponse response){
+    session.setMaxInactiveInterval(60*30);
+    int time = session.getMaxInactiveInterval();
+    UserVO userVO = userService.selectUserByIdAndPass(id,pw);
+    userVO.setSEssionTime(Integer.toString(time));
+    model.setAttribute("userSession",userVO);
+}
+
+
+
+public class UserSessionConfig implements HttpSessionListener{
+
+    @Autowired
+    priavate CommonMapper mapper;
+
+    @Override
+    public void sessionDestroyed(HttpSessionEvent se){
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+        UserVO user = (UserVO)se.getSession().getAttribute("userSession");
+        if(user != null){
+            String sessionKey = user.getSessionKey();
+            mapper.delete("User.deleteUserSessionKey", sessionKey);
+        }
+    }
+}
+
+@WebListener
+public class UserSession implements HttpSessionListener{
+
+    /*
+        auto injected.
+    */
+    @Autowired
+    private Mapper mapper;
+
+    /*
+        When sessionDestroyed. to-do.
+    */
+    @Override
+    public void sessionDestroyed(HttpSessionEvent se){
+        //out of mvc class, forced bean injection.
+        SpingBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    
+        //session controll.
+        se.getSession().getAttribute("userSession");
+        
+    }    
+}

@@ -1,0 +1,23 @@
+import org.apache.log4j.spi.LogginEvent;
+
+public class Log4JNoSQLFilter extends org.apache.log4j.spi.Filter{
+  @Override
+  public int decide(LoggingEvent event){
+    String message = (String) event.getMessage();
+    if(message.contains("NO_SQL");
+      return DENY;
+    }
+    return 0;
+}
+
+
+
+.xml
+
+/*NO_SQL*/
+
+
+log4j.xml
+<appender>
+  <filter class="egovframework.log4jConf.Log$NOSQLFilter">
+</appender>

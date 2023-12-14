@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class Sample{
+    public static void main(String[] agrs){
+        int[] data = {5,6,4,2,3,1,1,2,2,4,8}
+
+        // 짝수만 포함하는 ArrayList 생성
+        ArrayList<Integer> dataList = new ArrayList<>();
+        for(int i=0; i<data.length; i++){
+            if(data[i] % 2 == 0){
+                dataList.add(data[i]);
+            }
+        }
+
+        //Set을 사용하여 중복을 제거
+        HashSet<Integer> dataSet = new HashSet<>(dataList);
+
+        //Set을 다시 List로 변경
+        ArrayList<Integer> distinctList = new ArrayList<>(dataSet);
+
+        //역순으로 정렬
+        distinctList.sort(Comparator.reverseOrder());
+
+        //Integer 리스트를 정수 배열로 변환
+        int[] result = new int[distinctList.size()];
+        for(int i = 0; i < distinctList.size(); i++){
+            result[i] = distinctList.get(i);
+        }
+    }
+}
+
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class Sample{
+    public static void main(String[] args){
+        int[] data = {5,6,4,2,3,1,1,2,2,4,8};
+        int[] result = Arrays.stream(data)
+                        .boxed()
+                        .filter((a) -> a % 2  == 0)
+                        .distinct()
+                        .sorted(Comparator.reverseOrder())
+                        .mapToInt(Integer::intValue)
+                        .toArray();
+            
+    }
+}
+
+/*
+        1. Arrays.stream(data)로 정수 배열을 IntStream으로 생성
+        2. .boxed()로 IntStream을 Integer의 Stream으로 변경한다.
+            -> Comparator.reverseOrder메서드는 원시타입인 int대신 Integer를 사용함
+        3. .filter((a) -> a % 2 == 0)로 짝수만 필터링 한다. 이때 사용한 
+            (a) -> a % 2 == 0이 람다함수. a가 짝수인지 조사해서 해당하는 데이터만 필터링.
+        4. .distinct() 중복제거
+        5. .sorted(Comparator.reverseOrder())로 역순으로 정렬함.
+        6. .mapToInt(Integer::intValue)로 Integer의 stram을 IntStream으로 변경
+        7. .toArray() 호출하여 IntStream을 int[] 배열로 리턴. 
+
+
+
+
+*/

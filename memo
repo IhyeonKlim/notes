@@ -96,3 +96,60 @@ outer인 경우
 자바 개발 오픈소스 검색엔진. 
 full-text검색시 RDBMS보다 뛰어남.
 RDBMS은 이진트리 검색과 흡사함. 랭킹알고리즘 사용.
+
+
+JSP에서
+
+${pageContext.request.contextPath} : 현재 내위치. 즉, 상대경로다.
+    .현재 웹페이지 소속된 폴더.
+    .. 현재 웹페이지의 부모 폴더.
+    /루트
+    ./:현재위치
+    ../:현재위치의 상단 폴더
+
+String root = request.getContextPath();
+//return /project;
+String uri = request.getRequestURI();
+//return /project/jspFile.jsp;
+String serveltPath = request.getServletPath();
+//return /jspFile.jsp;
+StringBuffer url = reqeust.getRequestURL();
+//return = http://localhost:8080/project/jspFile.jsp;
+
+StringBuffer -> append, insert, toString
+String
+
+-객체 생성의 차이. 메모리 사용량과 속도 차이.
+
+-변경작업이 많으면 buffer, 적으면 String.
+
+StringBuilder -> Buffer보다 좋음.
+
+
+/*
+linux 
+find . -name '*json*' | xargs grep -i '2023098225'
+
+*/
+    
+
+    
+게시판명
+카테고리
+답글
+댓글
+파일첨부
+관리권한, 목록, 조회, 등록, 답글, 댓글
+
+
+메뉴키
+메뉴타입 - 빈화면, 프로그램, 게시판, 링크
+메뉴명
+새창여부
+메뉴출력
+사용여부
+
+권한 - 그룹
+
+//reload
+$(opener.location).attr(href,"javascript:"++"");

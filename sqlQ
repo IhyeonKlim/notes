@@ -18,7 +18,18 @@ name(이름)	score(성적)	absent(결석회수)
 심봉사	90	4
 콩쥐	65	0
 팥쥐	52	1
-
+---------------------------------
+select 
+    name, 
+    case 
+        when absent = 4 then 'F'
+        when score >= 90 then 'A'
+        when score >= 80 then 'B'
+        when score >= 70 then 'C'
+        when score >= 60 then 'D'
+        else 'F'
+        end as rank
+    from "Table"
 */
 
 /*
@@ -41,6 +52,12 @@ idx
 6	디자인팀 X 프로젝트 미팅 공지	디자인팀	2023-02-06 00:00:00	52
 */
 
+select 
+    title, 
+    view_count, 
+    post_date 
+    from "Table"
+    order by post_date desc;
 
 
 /*

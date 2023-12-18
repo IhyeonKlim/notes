@@ -128,3 +128,102 @@ f(n) = 1
 space complex.
 
 */  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--배열을 문자열로
+
+CREATE OR REPLACE TYPE VARCHAR_ARR is VARRAY(50) OF VARCHAR2(200);
+
+CREATE OR REPLACE FUNCTION P2F_ARR2STR(
+in_arr VARCHAR_ARR,
+in_delimiter VARCHAR2
+)
+RETURN VARCHAR2
+AS
+	lo_rtn VARCHAR2(32767)
+BEGIN
+	for i in in_arr.first..in_arr.last LOOP
+		if i != in_arr.first then
+		lo_rtn := lo_rtn||in_delimiter;
+		end if;
+		lo_rtn := lo_rtn||in_arr(i);
+	END LOOP;
+	RETURN lo_rtn;
+End;
+
+
+--문자열을 배열로
+
+CREATE OR REPLACE FUNCTION P2F_STR2ARR(
+	in_strSrc VARCHAR2,
+	in_delimiter VARCHAR2
+)
+RETURN VARCHAR_ARR
+AS
+	lm_strArr VARCHAR_ARR := VARCHAR_ARR();
+	CURSOR c_list(v_strSrc IN VARCHAR2,v_delimiter IN VARCHAR2) IS
+	select regexp_substr(v_strSrc,'[^'||v_delimiter||']+', 1, level) as val
+	from dual
+	connect by regexp_substr(v_strSrc,'[^'||v_delimiter||']+', 1, level) is not null;
+BEGIN
+	FOR i IN c_list(in_strSrc, in_delimiter) LOOP
+		lm_strArr.extend;
+		 lm_strArr( lm_strArr.count) := i.val;
+	END LOOP;
+	RETURN lm_strArr;
+End;
+
+
+SELECT REGEXP_SUBSTR(a.langList, '[^|]+', 1, LEVEL) AS split_result
+   FROM (SELECT 'Java|Kotlin|Python|Swift' AS langList 
+           FROM dual) a
+CONNECT BY LEVEL <= LENGTH(REGEXP_REPLACE(a.langList, '[^|]+','')) + 1
+
+
+
+create or replace type string_array as table of varchar2(100);
+
+create or replace procedure dinosaur.get_name ( 
+	participant in string_array
+)
+as
+begin
+	for i in 1 ..participant.count loop
+	 insert into participant values(participant(i));
+	end loop;
+end;
+
+
+
+	return varchar2 is  inevitable_name varchar2(10)
+begin
+	if participant is null or participant = null
+		inevitable_name := null;
+	else
+	  select name
+	  into inevitable_name 
+		from (
+			select participant from dual
+			minus
+			select completion from "table"
+		)
+	end if;
+	return inevitable_name 
+exception
+	when others then
+		return '없음';
+	end get_name
+

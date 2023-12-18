@@ -76,4 +76,55 @@ participant	completion	return
 
 /*
     시간복잡도를 빅오로 표현할 수 있는 코드를 작성해라?
+
+
+    시간복잡도는 빠른 순서대로 O(1), O(logN), O(N), O(NlogN), O(N^), O(C^N), O(N!)이 있다.
+
+    faster? less memory-intensive?
+
+    n=100이라 가정하면
+    O(1) = 1
+    O(log1000) = 약 10
+    O(1000) = 1000
+    O(1000log1000) = 약10000
+    O(1000) = 1000000
+    O(1000^1000) = 1000000000
+    O(2^1000) = 1.07 * 10^301
+    O(1000!) = 4.02 * 10^2567
+    의 확연한 차이를 볼 수 있다.
+
+    function addUpTo(n){
+        let total = 0;
+        for(let i = 1; i <= n; i++){
+            total += i;    
+        }
+        return total;
+    }
+    function addUpTo2(n){
+        return n * (n+1)/2;    
+    }
+    function addUpTO(n){
+        for(){
+            for(){
+            }
+        }
+    }
+let t1 = performance.now();
+addUpTo(1000000000); //10억
+let t2 = performance.now();
+console.log(`time elapesd : ${t2-t1)/1000} sec`);
+
+`operation 
+first count N의 값에 관련없음.
+second n이 n값에 따라 개수가 늘어남.
+
+f(n) = n
+f(n) = n^2
+f(n) = 1
+`
+
+상수 , 변수배정,array-index, loop,
+
+space complex.
+
 */  
